@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>alexdev — Backend Engineer</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="src/styles/main.css">
+</head>
+<body>
+
+  <nav>
+    <span class="nav-brand">alexdev.</span>
+    <ul class="nav-links">
+      <li><a href="#">Stack</a></li>
+      <li><a href="#">Projects</a></li>
+      <li><a href="Experience.html">Experience</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <div class="nav-clock" id="clock"></div>
+  </nav>
+
+  <canvas id="orbitCanvas"></canvas>
+
+  <div id="hero">
+    <p class="hero-eyebrow">Java &amp; Spring Boot Developer</p>
+    <h1 class="hero-title">Building <em id="wordCycle">resilient</em><br>backend systems</h1>
+    <p class="hero-sub">Distributed architecture, microservices,<br>and cloud-native solutions that scale.</p>
+    <a href="#" class="hero-cta">Explore Work <span style="opacity:0.6">→</span></a>
+  </div>
+
+  <div class="bubble-tooltip" id="tooltip"></div>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <!-- scripts load in dependency order; all share window.Portfolio namespace -->
+  <script src="src/scripts/config/rings.js"></script>
+  <script src="src/scripts/state.js"></script>
+  <script src="src/scripts/utils/math.js"></script>
+  <script src="src/scripts/utils/icons.js"></script>
+  <script src="src/scripts/components/clock.js"></script>
+  <script src="src/scripts/components/wordCycle.js"></script>
+  <script src="src/scripts/components/bubbles.js"></script>
+  <script src="src/scripts/components/dragHandler.js"></script>
+  <script src="src/scripts/components/orbit.js"></script>
+  <script src="src/scripts/components/tweakPanel.js"></script>
+  <script src="src/scripts/components/animations.js"></script>
+  <script src="src/scripts/main.js"></script>
+
+</body>
+</html>

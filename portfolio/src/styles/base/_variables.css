@@ -1,0 +1,8 @@
+:root {
+  --bg: #EEECEA;
+  --text: #18150f;
+  --muted: #7a7369;
+  --accent: #b85c2a;
+  --glass-bg: rgba(255,255,255,0.78);
+  --glass-border: rgba(255,255,255,0.92);
+}

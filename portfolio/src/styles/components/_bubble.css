@@ -1,0 +1,23 @@
+.bubble {
+  position: fixed;
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  z-index: 10;
+  user-select: none;
+  will-change: transform, left, top;
+}
+
+.bubble svg { width: 30px; height: 30px; display: block; }
+
+.bubble.dragging {
+  cursor: grabbing !important;
+  z-index: 50;
+  transform: scale(1.12) !important;
+}
