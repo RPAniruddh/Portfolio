@@ -2,7 +2,6 @@
 @import './base/_reset.css';
 @import './base/_background.css';
 @import './components/_nav.css';
-@import './components/_hero.css';
-@import './components/_bubble.css';
-@import './components/_tooltip.css';
 @import './pages/_about.css';
+
+html, body { overflow: auto; height: auto; }

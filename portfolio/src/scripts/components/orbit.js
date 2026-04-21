@@ -53,7 +53,7 @@
           i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
         }
         ctx.closePath();
-        ctx.strokeStyle = `rgba(0,0,0,${0.065 - ri * 0.012})`;
+        ctx.strokeStyle = `rgba(255,255,255,${0.07 - ri * 0.018})`;
         ctx.lineWidth = 0.8;
         ctx.setLineDash([3.5, 9]);
         ctx.lineDashOffset = -(P.state.ringOffset[ri] * (50 + ri * 15));

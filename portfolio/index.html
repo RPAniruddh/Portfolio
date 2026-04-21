@@ -12,6 +12,7 @@
   <nav>
     <span class="nav-brand">alexdev.</span>
     <ul class="nav-links">
+      <li><a href="#about-section">About</a></li>
       <li><a href="#">Stack</a></li>
       <li><a href="#">Projects</a></li>
       <li><a href="Experience.html">Experience</a></li>
@@ -22,17 +23,162 @@
 
   <canvas id="orbitCanvas"></canvas>
 
-  <div id="hero">
-    <p class="hero-eyebrow">Java &amp; Spring Boot Developer</p>
-    <h1 class="hero-title">Building <em id="wordCycle">resilient</em><br>backend systems</h1>
-    <p class="hero-sub">Distributed architecture, microservices,<br>and cloud-native solutions that scale.</p>
-    <a href="#" class="hero-cta">Explore Work <span style="opacity:0.6">→</span></a>
-  </div>
+  <!-- ── HERO SECTION ── -->
+  <section id="hero-section">
+    <div id="hero">
+      <p class="hero-eyebrow">Java &amp; Spring Boot Developer</p>
+      <h1 class="hero-title">Building <em id="wordCycle">resilient</em><br>backend systems</h1>
+      <p class="hero-sub">Distributed architecture, microservices,<br>and cloud-native solutions that scale.</p>
+      <a href="#about-section" class="hero-cta">Explore Work <span style="opacity:0.6">→</span></a>
+    </div>
+  </section>
+
+  <!-- ── ABOUT SECTION ── -->
+  <section id="about-section">
+    <div class="page">
+
+      <div class="about-intro">
+        <p class="hero-eyebrow">$ whoami</p>
+        <h1 class="about-heading">Behind the <em>code</em></h1>
+        <p class="about-lead">The engineer who keeps systems running — a quick peek into who I am outside the terminal.</p>
+      </div>
+
+      <!-- ROW 1: scattered photos left, text right -->
+      <div class="about-row">
+
+        <div class="photo-cluster cluster-1">
+          <svg class="cluster-svg" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 60 120 Q 180 -20 330 140" stroke="rgba(255,255,255,0.15)" stroke-width="1.2" stroke-dasharray="5 7" fill="none"/>
+            <circle cx="60"  cy="120" r="3.5" fill="var(--accent)" opacity="0.7"/>
+            <circle cx="330" cy="140" r="3.5" fill="var(--accent)" opacity="0.7"/>
+          </svg>
+
+          <div class="photo-card">
+            <div class="photo-card-img">
+              <svg width="100%" height="100%" viewBox="0 0 144 192" xmlns="http://www.w3.org/2000/svg">
+                <rect width="144" height="192" fill="#1e2533"/>
+                <line x1="0" y1="0" x2="144" y2="192" stroke="#2a3245" stroke-width="1"/>
+                <line x1="144" y1="0" x2="0" y2="192" stroke="#2a3245" stroke-width="1"/>
+                <text x="72" y="96" text-anchor="middle" dominant-baseline="middle" font-family="monospace" font-size="9" fill="#4d9de0">profile photo</text>
+              </svg>
+            </div>
+            <p class="photo-card-label">Chennai, India</p>
+          </div>
+
+          <div class="photo-card">
+            <div class="photo-card-img">
+              <svg width="100%" height="100%" viewBox="0 0 170 224" xmlns="http://www.w3.org/2000/svg">
+                <rect width="170" height="224" fill="#1a2d2a"/>
+                <line x1="0" y1="0" x2="170" y2="224" stroke="#223830" stroke-width="1"/>
+                <line x1="170" y1="0" x2="0" y2="224" stroke="#223830" stroke-width="1"/>
+                <text x="85" y="112" text-anchor="middle" dominant-baseline="middle" font-family="monospace" font-size="9" fill="#39d353">coding setup</text>
+              </svg>
+            </div>
+            <p class="photo-card-label">desk setup</p>
+          </div>
+
+          <div class="photo-card">
+            <div class="photo-card-img">
+              <svg width="100%" height="100%" viewBox="0 0 150 200" xmlns="http://www.w3.org/2000/svg">
+                <rect width="150" height="200" fill="#2a1e1a"/>
+                <line x1="0" y1="0" x2="150" y2="200" stroke="#38281e" stroke-width="1"/>
+                <line x1="150" y1="0" x2="0" y2="200" stroke="#38281e" stroke-width="1"/>
+                <text x="75" y="100" text-anchor="middle" dominant-baseline="middle" font-family="monospace" font-size="9" fill="#9ab0c8">hackathon</text>
+              </svg>
+            </div>
+            <p class="photo-card-label">hackathon '23</p>
+          </div>
+        </div>
+
+        <div class="about-text">
+          <p>Born and raised in Chennai, I've been pulling apart computers and putting them back together since I was twelve. That curiosity turned into a career — I now build the distributed systems that most people never see but always depend on.</p>
+          <p>I studied <strong>Computer Science & Engineering</strong> and spent every spare hour reading about system design, distributed consensus, and why everything eventually fails. Understanding failure modes is, I think, the real job.</p>
+
+          <div class="about-stats">
+            <div class="stat-item">
+              <div class="stat-num">3<em>+</em></div>
+              <div class="stat-label">Years building</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-num">12<em>+</em></div>
+              <div class="stat-label">Tech skills</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-num">1</div>
+              <div class="stat-label">Publication</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="about-divider"></div>
+
+      <!-- ROW 2: text left, clothesline right -->
+      <div class="about-row reverse">
+
+        <div class="about-text">
+          <p>Outside work, I'm usually deep in a side project — lately building a real-time event streaming demo with Kafka and Flink to understand backpressure at scale. Learning by breaking things is still my favourite method.</p>
+          <p>I play chess badly, read science fiction enthusiastically, and genuinely enjoy a good architecture debate. If you want to talk about <strong>distributed systems, microservices trade-offs, or why two-phase commit is a trap</strong> — let's talk.</p>
+        </div>
+
+        <div class="photo-cluster cluster-2">
+          <div class="clothesline"></div>
+          <div class="pin pin-1"></div>
+          <div class="pin pin-2"></div>
+          <div class="pin pin-3"></div>
+
+          <svg class="cluster-svg" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 380 30 Q 300 200 20 280" stroke="rgba(255,255,255,0.12)" stroke-width="1.2" stroke-dasharray="5 7" fill="none"/>
+          </svg>
+
+          <div class="photo-card">
+            <div class="photo-card-img">
+              <svg width="100%" height="100%" viewBox="0 0 160 213" xmlns="http://www.w3.org/2000/svg">
+                <rect width="160" height="213" fill="#1a2820"/>
+                <line x1="0" y1="0" x2="160" y2="213" stroke="#223428" stroke-width="1"/>
+                <line x1="160" y1="0" x2="0" y2="213" stroke="#223428" stroke-width="1"/>
+                <text x="80" y="107" text-anchor="middle" dominant-baseline="middle" font-family="monospace" font-size="9" fill="#39d353">coffee + code</text>
+              </svg>
+            </div>
+            <p class="photo-card-label">morning ritual</p>
+          </div>
+
+          <div class="photo-card">
+            <div class="photo-card-img">
+              <svg width="100%" height="100%" viewBox="0 0 160 213" xmlns="http://www.w3.org/2000/svg">
+                <rect width="160" height="213" fill="#1a2030"/>
+                <line x1="0" y1="0" x2="160" y2="213" stroke="#222a3e" stroke-width="1"/>
+                <line x1="160" y1="0" x2="0" y2="213" stroke="#222a3e" stroke-width="1"/>
+                <text x="80" y="107" text-anchor="middle" dominant-baseline="middle" font-family="monospace" font-size="9" fill="#4d9de0">chess board</text>
+              </svg>
+            </div>
+            <p class="photo-card-label">weekend chess</p>
+          </div>
+
+          <div class="photo-card">
+            <div class="photo-card-img">
+              <svg width="100%" height="100%" viewBox="0 0 145 193" xmlns="http://www.w3.org/2000/svg">
+                <rect width="145" height="193" fill="#2a2018"/>
+                <line x1="0" y1="0" x2="145" y2="193" stroke="#382c20" stroke-width="1"/>
+                <line x1="145" y1="0" x2="0" y2="193" stroke="#382c20" stroke-width="1"/>
+                <text x="72" y="97" text-anchor="middle" dominant-baseline="middle" font-family="monospace" font-size="9" fill="#9ab0c8">conf talk</text>
+              </svg>
+            </div>
+            <p class="photo-card-label">ICRTCIS 2024</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
 
   <div class="bubble-tooltip" id="tooltip"></div>
 
   <!-- GSAP -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
   <!-- scripts load in dependency order; all share window.Portfolio namespace -->
   <script src="src/scripts/config/rings.js"></script>
