@@ -1,7 +1,8 @@
 (function (P) {
-  const canvas  = document.getElementById('orbitCanvas');
-  const tooltip = document.getElementById('tooltip');
-  const bubbles = P.createBubbles(P.ICONS);
+  const canvas    = document.getElementById('orbitCanvas');
+  const bgCanvas  = P.initBgDiagram();
+  const tooltip   = document.getElementById('tooltip');
+  const bubbles   = P.createBubbles(P.ICONS);
 
   P.initClock();
   P.initWordCycleGSAP();
@@ -14,11 +15,13 @@
   window.addEventListener('scroll', function () {
     const fade = Math.max(0, 1 - window.scrollY / (window.innerHeight * 0.55));
     canvas.style.opacity = fade;
+    bgCanvas.style.opacity = fade;
     bubbles.forEach(function (b) { b.style.opacity = fade; });
   }, { passive: true });
 
-  // ScrollTrigger text reveal for about section
+  // ScrollTrigger text reveal for about section + experience section
   gsap.registerPlugin(ScrollTrigger);
+  P.initExperience();
 
   // ── Block reveal (slide up) for non-paragraph elements ──
   var blockSelectors = [

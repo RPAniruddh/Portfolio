@@ -1,0 +1,186 @@
+#experience-section {
+  position: relative;
+  z-index: 10;
+  background: var(--bg);
+}
+
+/* ── HEADING ── */
+.exp-heading-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 6rem 2.5rem 4rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.exp-heading-meta {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.4rem;
+  overflow: hidden;
+  font-family: 'Courier New', monospace;
+}
+.exp-heading-meta span { display: inline-block; }
+
+.exp-display-heading {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2.6rem, 5.5vw, 5.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+  color: var(--text);
+}
+
+.exp-heading-word { display: block; overflow: hidden; }
+.exp-heading-word-inner { display: block; transform: translateY(110%); }
+
+.exp-heading-word:nth-child(2) .exp-heading-word-inner {
+  font-style: italic;
+  color: var(--accent);
+}
+
+/* ── ENTRY LIST ── */
+.exp-entry-list {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2.5rem;
+}
+
+.exp-entry {
+  border-bottom: 1px solid var(--line);
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(22px);
+}
+
+.exp-entry-header {
+  display: grid;
+  grid-template-columns: 150px 1fr auto;
+  gap: 2rem;
+  padding: 2.6rem 0;
+  align-items: start;
+  user-select: none;
+}
+
+.exp-entry-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding-top: 6px;
+}
+
+.exp-entry-index {
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.exp-entry-period {
+  font-size: 0.72rem;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.exp-entry-tag {
+  display: inline-block;
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 2px 8px;
+  border-radius: 2px;
+  width: fit-content;
+}
+
+.exp-entry-main { padding-top: 2px; }
+
+.exp-entry-company-wrap { overflow: hidden; margin-bottom: 0.75rem; padding-bottom: 0.15em; }
+
+.exp-entry-company {
+  display: block;
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(1.8rem, 3.2vw, 3.6rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  transform: translateY(110%);
+  transition: color 0.22s;
+}
+.exp-entry:hover .exp-entry-company { color: var(--accent); }
+
+.exp-entry-role {
+  font-size: 0.78rem;
+  color: var(--muted);
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  line-height: 1.6;
+  margin-top: 1rem;
+}
+
+.exp-entry-arrow {
+  width: 38px; height: 38px;
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 6px;
+  flex-shrink: 0;
+  transition: transform 0.35s cubic-bezier(.77,0,.18,1);
+}
+.exp-entry-arrow svg {
+  width: 17px; height: 17px;
+  stroke: var(--muted);
+  transition: stroke 0.2s;
+}
+.exp-entry.open .exp-entry-arrow { transform: rotate(45deg); }
+.exp-entry.open .exp-entry-arrow svg { stroke: var(--accent); }
+
+/* ── DRAWER ── */
+.exp-entry-drawer { height: 0; overflow: hidden; }
+
+.exp-drawer-inner {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  padding-bottom: 2.8rem;
+  background: var(--line);
+}
+
+.exp-drawer-col {
+  padding: 1.8rem 2rem 1.5rem;
+  background: var(--bg);
+  border-top: 1.5px solid var(--line);
+}
+.exp-drawer-col:first-child { border-top-color: var(--accent); }
+
+.exp-drawer-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.9rem;
+  font-weight: 500;
+}
+
+.exp-drawer-text {
+  font-size: 0.82rem;
+  line-height: 1.8;
+  color: var(--muted);
+  font-weight: 300;
+}
+
+.exp-drawer-stat {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2rem;
+  color: var(--text);
+  letter-spacing: -0.03em;
+  margin-right: 0.2rem;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .exp-entry-header { grid-template-columns: 90px 1fr auto; gap: 1rem; }
+  .exp-drawer-inner { grid-template-columns: 1fr; }
+  .exp-entry-list { padding: 0 1.25rem; }
+  .exp-heading-section { padding: 4rem 1.25rem 3rem; }
+}
