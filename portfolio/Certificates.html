@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Certificates — alexdev</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #0e1117;
+      --text:         #e2ddd8;
+      --muted:        #9ab0c8;
+      --accent:       #39d353;
+      --line:         rgba(255,255,255,0.07);
+    }
+
+    html { scroll-behavior: smooth; scrollbar-width: none; -ms-overflow-style: none; }
+    html::-webkit-scrollbar { display: none; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      padding: 0 2.5rem;
+      background: rgba(14,17,23,0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-brand {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.2rem;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      flex: 1;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.8rem;
+      list-style: none;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.8125rem;
+      letter-spacing: 0.025em;
+      transition: color 0.18s;
+    }
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--text); }
+
+    .nav-back {
+      flex: 1;
+      text-align: right;
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color 0.18s;
+    }
+    .nav-back:hover { color: var(--text); }
+
+    /* ── PAGE ── */
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      align-items: stretch;
+      padding-top: 60px;
+    }
+
+    /* ── LAYOUT ── */
+    .certs-section {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2.5rem;
+      gap: 5rem;
+      align-items: center;
+      min-height: calc(100vh - 60px);
+    }
+
+    /* ── LEFT ── */
+    .certs-left {
+      display: flex;
+      flex-direction: column;
+      gap: 2.2rem;
+      border-right: 1px solid var(--line);
+      padding-right: 4rem;
+    }
+
+    .certs-tag {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 999px;
+      padding: 5px 16px;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      width: fit-content;
+      font-family: 'Courier New', monospace;
+    }
+
+    .certs-heading {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 3.2vw, 3.4rem);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+    .certs-heading em { font-style: italic; color: var(--accent); }
+
+    .certs-sub {
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-weight: 300;
+      line-height: 1.8;
+    }
+
+    .certs-nav {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .certs-nav-btn {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: transparent;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
+      color: var(--muted);
+    }
+    .certs-nav-btn:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #0e1117;
+      transform: scale(1.06);
+    }
+    .certs-nav-btn:disabled { opacity: 0.25; cursor: not-allowed; transform: none; }
+    .certs-nav-btn svg { width: 16px; height: 16px; }
+
+    .certs-counter {
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      font-variant-numeric: tabular-nums;
+      margin-left: 0.25rem;
+    }
+
+    /* ── RIGHT (deck) ── */
+    .certs-right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .certs-track-wrap {
+      position: relative;
+      width: 300px;
+      height: 400px;
+      cursor: grab;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .certs-track-wrap:active { cursor: grabbing; }
+
+    .certs-track { position: relative; width: 100%; height: 100%; }
+
+    /* ── CARD ── */
+    .cert-card {
+      position: absolute;
+      top: 0; left: 0;
+      width: 300px;
+      background: #161b24;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      overflow: hidden;
+      user-select: none;
+      will-change: transform;
+    }
+
+    .cert-card-header {
+      padding: 1.2rem 1.4rem 0.9rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .cert-logo { height: 26px; display: flex; align-items: center; }
+
+    .cert-badge-wrap {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .cert-card-body { padding: 1.2rem 1.4rem; }
+
+    .cert-provider {
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+      opacity: 0.7;
+    }
+
+    .cert-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin-bottom: 0.8rem;
+    }
+
+    .cert-level {
+      display: inline-block;
+      font-size: 0.56rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 2px;
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+
+    .cert-level-foundational { background: rgba(255,153,0,0.12);  color: #FF9900; }
+    .cert-level-associate    { background: rgba(33,150,243,0.12); color: #64b5f6; }
+    .cert-level-professional { background: rgba(109,179,63,0.12); color: #6DB33F; }
+
+    .cert-divider { height: 1px; background: rgba(255,255,255,0.06); margin: 0.8rem 0; }
+
+    .cert-meta { display: flex; justify-content: space-between; align-items: flex-end; }
+
+    .cert-meta-label {
+      font-size: 0.58rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      opacity: 0.6;
+      margin-bottom: 2px;
+    }
+
+    .cert-meta-val { font-size: 0.72rem; font-weight: 500; color: var(--text); }
+
+    .cert-card-footer {
+      padding: 0.8rem 1.4rem;
+      background: rgba(255,255,255,0.03);
+      border-top: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .cert-verify {
+      font-size: 0.6rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .cert-verify-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .cert-card.cert-placeholder {
+      background: rgba(255,255,255,0.02);
+      border: 1.5px dashed rgba(255,255,255,0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 360px;
+      gap: 0.8rem;
+    }
+
+    .cert-placeholder-icon {
+      width: 40px; height: 40px;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted);
+    }
+
+    .cert-placeholder-text {
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      font-weight: 300;
+      text-align: center;
+      opacity: 0.6;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .certs-section { grid-template-columns: 1fr; gap: 3rem; padding: 3rem 1.25rem 6rem; min-height: auto; }
+      .certs-left { border-right: none; border-bottom: 1px solid var(--line); padding-right: 0; padding-bottom: 2.5rem; }
+      nav { padding: 0 1.25rem; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">alexdev.</a>
+  <ul class="nav-links">
+    <li><a href="index.html#about-section">About</a></li>
+    <li><a href="#">Stack</a></li>
+    <li><a href="#">Projects</a></li>
+    <li><a href="Experience.html">Experience</a></li>
+    <li><a href="Certificates.html" class="active">Certificates</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <a href="index.html" class="nav-back">← Back</a>
+</nav>
+
+<div class="page">
+  <section class="certs-section">
+
+    <!-- LEFT -->
+    <div class="certs-left">
+      <span class="certs-tag">Certificates</span>
+      <h2 class="certs-heading">Trusted<br><em>credentials</em><br>&amp; skills</h2>
+      <p class="certs-sub">Industry-recognised certifications validating cloud architecture, backend engineering, and distributed systems expertise.</p>
+      <div class="certs-nav">
+        <button type="button" class="certs-nav-btn" id="btnPrev" aria-label="Previous" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button type="button" class="certs-nav-btn" id="btnNext" aria-label="Next">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <span class="certs-counter" id="counter">01 / 04</span>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="certs-right">
+      <div class="certs-track-wrap" id="trackWrap">
+        <div class="certs-track" id="track">
+
+          <!-- AWS Cloud Practitioner -->
+          <div class="cert-card">
+            <div class="cert-card-header">
+              <div class="cert-logo">
+                <svg width="52" height="24" viewBox="0 0 52 24" fill="none">
+                  <text x="0" y="18" font-family="Inter,sans-serif" font-weight="700" font-size="13" fill="#FF9900">aws</text>
+                </svg>
+              </div>
+              <div class="cert-badge-wrap" style="background:rgba(255,153,0,0.15);">
+                <svg width="18" height="18" viewBox="0 0 40 40" fill="none">
+                  <path d="M20 6l4 8h9l-7 6 3 9-9-5-9 5 3-9-7-6h9z" fill="#FF9900"/>
+                </svg>
+              </div>
+            </div>
+            <div class="cert-card-body">
+              <p class="cert-provider">Amazon Web Services</p>
+              <p class="cert-name">AWS Certified Cloud Practitioner</p>
+              <span class="cert-level cert-level-foundational">Foundational</span>
+              <div class="cert-divider"></div>
+              <div class="cert-meta">
+                <div><p class="cert-meta-label">Issued</p><p class="cert-meta-val">2024</p></div>
+                <div style="text-align:right"><p class="cert-meta-label">Valid through</p><p class="cert-meta-val">2027</p></div>
+              </div>
+            </div>
+            <div class="cert-card-footer">
+              <span class="cert-verify"><span class="cert-verify-dot"></span>Verified</span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(154,176,200,0.4)" stroke-width="1.8" stroke-linecap="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </div>
+          </div>
+
+          <!-- AWS Solutions Architect -->
+          <div class="cert-card">
+            <div class="cert-card-header">
+              <div class="cert-logo">
+                <svg width="52" height="24" viewBox="0 0 52 24" fill="none">
+                  <text x="0" y="18" font-family="Inter,sans-serif" font-weight="700" font-size="13" fill="#FF9900">aws</text>
+                </svg>
+              </div>
+              <div class="cert-badge-wrap" style="background:rgba(33,150,243,0.12);">
+                <svg width="18" height="18" viewBox="0 0 40 40" fill="none">
+                  <rect x="8" y="8" width="10" height="10" rx="2" fill="#64b5f6"/>
+                  <rect x="22" y="8" width="10" height="10" rx="2" fill="#64b5f6" opacity="0.6"/>
+                  <rect x="8" y="22" width="10" height="10" rx="2" fill="#64b5f6" opacity="0.6"/>
+                  <rect x="22" y="22" width="10" height="10" rx="2" fill="#64b5f6" opacity="0.3"/>
+                </svg>
+              </div>
+            </div>
+            <div class="cert-card-body">
+              <p class="cert-provider">Amazon Web Services</p>
+              <p class="cert-name">Solutions Architect Associate</p>
+              <span class="cert-level cert-level-associate">Associate</span>
+              <div class="cert-divider"></div>
+              <div class="cert-meta">
+                <div><p class="cert-meta-label">Issued</p><p class="cert-meta-val">2024</p></div>
+                <div style="text-align:right"><p class="cert-meta-label">Valid through</p><p class="cert-meta-val">2027</p></div>
+              </div>
+            </div>
+            <div class="cert-card-footer">
+              <span class="cert-verify"><span class="cert-verify-dot"></span>Verified</span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(154,176,200,0.4)" stroke-width="1.8" stroke-linecap="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </div>
+          </div>
+
+          <!-- Spring Professional -->
+          <div class="cert-card">
+            <div class="cert-card-header">
+              <div class="cert-logo">
+                <svg width="80" height="24" viewBox="0 0 80 24" fill="none">
+                  <text x="0" y="18" font-family="Inter,sans-serif" font-weight="600" font-size="11" fill="#6DB33F">VMware Spring</text>
+                </svg>
+              </div>
+              <div class="cert-badge-wrap" style="background:rgba(109,179,63,0.12);">
+                <svg width="18" height="18" viewBox="0 0 40 40" fill="none">
+                  <circle cx="20" cy="20" r="10" stroke="#6DB33F" stroke-width="2"/>
+                  <path d="M20 10c-3 2-5 5-5 10s2 8 5 10" stroke="#6DB33F" stroke-width="1.8" stroke-linecap="round"/>
+                  <path d="M20 10c3 2 5 5 5 10s-2 8-5 10" stroke="#6DB33F" stroke-width="1.8" stroke-linecap="round"/>
+                </svg>
+              </div>
+            </div>
+            <div class="cert-card-body">
+              <p class="cert-provider">VMware / Broadcom</p>
+              <p class="cert-name">Spring Professional Developer</p>
+              <span class="cert-level cert-level-professional">Professional</span>
+              <div class="cert-divider"></div>
+              <div class="cert-meta">
+                <div><p class="cert-meta-label">Status</p><p class="cert-meta-val" style="color:#39d353;">In Progress</p></div>
+                <div style="text-align:right"><p class="cert-meta-label">Expected</p><p class="cert-meta-val">2025</p></div>
+              </div>
+            </div>
+            <div class="cert-card-footer">
+              <span class="cert-verify" style="color:#39d353;opacity:0.8;"><span style="width:6px;height:6px;border-radius:50%;background:#39d353;opacity:0.5;display:inline-block;margin-right:5px;vertical-align:middle;flex-shrink:0;"></span>Upcoming</span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(154,176,200,0.4)" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+          </div>
+
+          <!-- Placeholder -->
+          <div class="cert-card cert-placeholder">
+            <div class="cert-placeholder-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </div>
+            <p class="cert-placeholder-text">More certifications<br>coming soon</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </section>
+</div>
+
+<script>
+var track   = document.getElementById('track');
+var btnPrev = document.getElementById('btnPrev');
+var btnNext = document.getElementById('btnNext');
+var counter = document.getElementById('counter');
+var wrap    = document.getElementById('trackWrap');
+var cards   = Array.prototype.slice.call(track.querySelectorAll('.cert-card'));
+var TOTAL   = cards.length;
+var current = 0;
+var animating = false;
+
+var DECK_OFFSETS = [
+  { y: 0,  rot: 0,    scale: 1,    z: 40 },
+  { y: 14, rot: 2.5,  scale: 0.96, z: 30 },
+  { y: 26, rot: -1.8, scale: 0.92, z: 20 },
+  { y: 36, rot: 1.2,  scale: 0.88, z: 10 },
+];
+
+function updateCounter() {
+  counter.textContent = String(current + 1).padStart(2, '0') + ' / ' + String(TOTAL).padStart(2, '0');
+}
+
+function applyDeckState(animated) {
+  cards.forEach(function (card, i) {
+    var pos = (i - current + TOTAL) % TOTAL;
+    var off = DECK_OFFSETS[Math.min(pos, DECK_OFFSETS.length - 1)];
+    card.style.transition    = animated ? 'transform 0.5s cubic-bezier(.77,0,.18,1), opacity 0.4s ease' : 'none';
+    card.style.zIndex        = off.z;
+    card.style.opacity       = pos < DECK_OFFSETS.length ? 1 : 0;
+    card.style.pointerEvents = pos === 0 ? 'auto' : 'none';
+    card.style.transform     = 'translateY(' + off.y + 'px) rotate(' + off.rot + 'deg) scale(' + off.scale + ')';
+  });
+  updateCounter();
+  btnPrev.disabled = current === 0;
+  btnNext.disabled = current === TOTAL - 1;
+}
+
+function swipeOut(dir, cb) {
+  var topCard = cards[current];
+  topCard.style.transition = 'transform 0.45s cubic-bezier(.55,0,.1,1), opacity 0.35s ease';
+  topCard.style.transform  = 'translateX(' + (dir * 130) + '%) rotate(' + (dir * 18) + 'deg) scale(0.95)';
+  topCard.style.opacity    = '0';
+  setTimeout(cb, 400);
+}
+
+function swipeIn(card) {
+  card.style.transition = 'none';
+  card.style.transform  = 'translateX(-80%) rotate(-10deg) scale(0.9)';
+  card.style.opacity    = '0';
+  requestAnimationFrame(function () {
+    requestAnimationFrame(function () {
+      card.style.transition = 'transform 0.5s cubic-bezier(.22,1,.36,1), opacity 0.35s ease';
+      card.style.transform  = 'translateY(0) rotate(0deg) scale(1)';
+      card.style.opacity    = '1';
+    });
+  });
+}
+
+function goNext() {
+  if (animating || current >= TOTAL - 1) return;
+  animating = true;
+  swipeOut(1, function () {
+    var swiped = cards[current];
+    swiped.style.transition = 'none';
+    swiped.style.transform  = 'translateY(36px) rotate(1.2deg) scale(0.88)';
+    swiped.style.opacity    = '0';
+    swiped.style.zIndex     = '5';
+    current++;
+    applyDeckState(true);
+    animating = false;
+  });
+}
+
+function goPrev() {
+  if (animating || current <= 0) return;
+  animating = true;
+  current--;
+  swipeIn(cards[current]);
+  setTimeout(function () { applyDeckState(true); animating = false; }, 100);
+}
+
+btnNext.addEventListener('mousedown', function (e) { e.preventDefault(); });
+btnPrev.addEventListener('mousedown', function (e) { e.preventDefault(); });
+btnNext.addEventListener('click', goNext);
+btnPrev.addEventListener('click', goPrev);
+
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'ArrowRight') goNext();
+  if (e.key === 'ArrowLeft')  goPrev();
+});
+
+wrap.addEventListener('wheel', function (e) {
+  e.preventDefault();
+  if (e.deltaY > 30) goNext();
+  else if (e.deltaY < -30) goPrev();
+}, { passive: false });
+
+var dragging = false, dragX = 0;
+
+wrap.addEventListener('mousedown', function (e) { dragging = true; dragX = e.clientX; cards[current].style.transition = 'none'; });
+document.addEventListener('mousemove', function (e) {
+  if (!dragging) return;
+  var dx = e.clientX - dragX;
+  cards[current].style.transform = 'translateX(' + dx + 'px) rotate(' + (dx * 0.04) + 'deg) scale(1)';
+});
+document.addEventListener('mouseup', function (e) {
+  if (!dragging) return;
+  dragging = false;
+  var dx = e.clientX - dragX;
+  if (dx < -70) { goNext(); return; }
+  if (dx >  70) { goPrev(); return; }
+  cards[current].style.transition = 'transform 0.45s cubic-bezier(.34,1.56,.64,1)';
+  cards[current].style.transform  = 'translateY(0) rotate(0deg) scale(1)';
+});
+
+wrap.addEventListener('touchstart', function (e) { dragX = e.touches[0].clientX; dragging = true; cards[current].style.transition = 'none'; }, { passive: true });
+wrap.addEventListener('touchmove', function (e) {
+  if (!dragging) return;
+  var dx = e.touches[0].clientX - dragX;
+  cards[current].style.transform = 'translateX(' + dx + 'px) rotate(' + (dx * 0.04) + 'deg) scale(1)';
+}, { passive: true });
+wrap.addEventListener('touchend', function (e) {
+  dragging = false;
+  var dx = e.changedTouches[0].clientX - dragX;
+  if (dx < -70) { goNext(); return; }
+  if (dx >  70) { goPrev(); return; }
+  cards[current].style.transition = 'transform 0.45s cubic-bezier(.34,1.56,.64,1)';
+  cards[current].style.transform  = 'translateY(0) rotate(0deg) scale(1)';
+});
+
+applyDeckState(false);
+</script>
+</body>
+</html>

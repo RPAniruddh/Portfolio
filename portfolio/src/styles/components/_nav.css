@@ -1,3 +1,13 @@
+#progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  width: 0%;
+  background: var(--accent);
+  z-index: 200;
+  transition: width 0.1s linear;
+}
+
 nav {
   position: fixed;
   top: 0; left: 0; right: 0;

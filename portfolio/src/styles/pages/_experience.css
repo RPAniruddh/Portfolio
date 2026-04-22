@@ -8,7 +8,7 @@
 .exp-heading-section {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 6rem 2.5rem 4rem;
+  padding: 4rem 2.5rem 2.5rem;
   border-bottom: 1px solid var(--line);
 }
 
@@ -25,7 +25,7 @@
 
 .exp-display-heading {
   font-family: 'DM Serif Display', serif;
-  font-size: clamp(2.6rem, 5.5vw, 5.5rem);
+  font-size: clamp(2rem, 3.8vw, 3.8rem);
   line-height: 0.95;
   letter-spacing: -0.025em;
   color: var(--text);
@@ -55,9 +55,9 @@
 
 .exp-entry-header {
   display: grid;
-  grid-template-columns: 150px 1fr auto;
+  grid-template-columns: 120px 1fr auto;
   gap: 2rem;
-  padding: 2.6rem 0;
+  padding: 1.8rem 0;
   align-items: start;
   user-select: none;
 }
@@ -102,7 +102,7 @@
 .exp-entry-company {
   display: block;
   font-family: 'DM Serif Display', serif;
-  font-size: clamp(1.8rem, 3.2vw, 3.6rem);
+  font-size: clamp(1.4rem, 2.2vw, 2.4rem);
   line-height: 1.1;
   letter-spacing: -0.02em;
   color: var(--text);

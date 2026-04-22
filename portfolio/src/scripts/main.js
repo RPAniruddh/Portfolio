@@ -11,17 +11,23 @@
   P.initTweakPanel(bubbles, canvas);
   P.initAnimations(bubbles);
 
+  const progressBar = document.getElementById('progress');
+
   // Fade orbit layer out as user scrolls into the about section
   window.addEventListener('scroll', function () {
     const fade = Math.max(0, 1 - window.scrollY / (window.innerHeight * 0.55));
     canvas.style.opacity = fade;
     bgCanvas.style.opacity = fade;
     bubbles.forEach(function (b) { b.style.opacity = fade; });
+
+    const total = document.body.scrollHeight - window.innerHeight;
+    progressBar.style.width = (total > 0 ? window.scrollY / total * 100 : 0) + '%';
   }, { passive: true });
 
   // ScrollTrigger text reveal for about section + experience section
   gsap.registerPlugin(ScrollTrigger);
   P.initExperience();
+  P.initCertificates();
 
   // ── Block reveal (slide up) for non-paragraph elements ──
   var blockSelectors = [
